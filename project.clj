@@ -11,12 +11,43 @@
   :ring {:handler modern-cljs.core/handler}
 
   :cljsbuild {:builds
-              [{;; CLJS source code path
-                :source-paths ["src/cljs"]
-                ;; Google Closure options
-                :compiler {:output-to "resources/public/js/modern.js"
+              {:dev
+               {;; clojurescript source code path
+                :source-paths ["src/brepl", "src/cljs"]
+
+                ;; Google Closure Compiler options
+                :compiler {;; the name of emitted JS script file
+                           :output-to "resources/public/js/modern_dbg.js"
+
+                           ;; minimum optimization
                            :optimizations :whitespace
-                           :pretty-print true}}]}
+
+                           ;; prettyfying emitted JS
+                           :pretty-print true}}
+
+               :prod
+               {;; clojurescript source code path
+                :source-paths ["src/cljs"]
+
+                ;; Google Closure Compiler options
+                :compiler {;; the name of emitted JS script file
+                           :output-to "resources/public/js/modern.js"
+
+                           :optimizations :advanced
+
+                           :pretty-print false}}
+               :pre-prod
+               {;; clojurescript source code path
+                :source-paths ["src/brepl", "src/cljs"]
+
+                :compiler {;; different output name
+                           :output-to "resources/public/js/modern_pre.js"
+
+                           ;; simple optimization
+                           :optimizations :simple
+
+                           ;; no need prettyfication
+                           :pretty-print false}}}}
 
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [org.clojure/clojurescript "0.0-2371"]
