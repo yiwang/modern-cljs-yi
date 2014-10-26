@@ -53,4 +53,5 @@
                  [org.clojure/clojurescript "0.0-2371"]
                  [compojure "1.2.1"]
                  [domina "1.0.3-SNAPSHOT"]
+                 [hiccups "0.3.0"]
                  ])

@@ -1,6 +1,15 @@
 (ns modern-cljs.shopping
+  (:require-macros [hiccups.core :as h])
   (:require [domina :as dom]
+            [hiccups.runtime :as hiccupsrt]
             [domina.events :as ev]))
+
+(defn remove-help []
+  (dom/destroy! (dom/by-class "help")))
+
+(defn add-help []
+  (dom/append! (dom/by-id "shoppingForm")
+               (h/html [:div.help "Click to calculate"])))
 
 (defn calculate []
   (let [quantity (dom/value (dom/by-id "quantity"))
@@ -14,6 +23,8 @@
     false))
 
 (defn ^:export init []
-  (if (and js/document
-           (.-getElementById js/document))
+  (when (and js/document
+           (aget js/document "getElementById"))
+    (ev/listen! (dom/by-id "calc") :mouseover add-help)
+    (ev/listen! (dom/by-id "calc") :mouseout remove-help)
     (ev/capture! (dom/by-id "calc") :click calculate)))
