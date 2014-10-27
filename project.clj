@@ -8,7 +8,7 @@
 
   :plugins [[lein-cljsbuild "1.0.3"]
             [lein-ring "0.8.13"]]
-  :ring {:handler modern-cljs.core/handler}
+  :ring {:handler modern-cljs.remotes/app}
 
   :cljsbuild {:builds
               {:dev
@@ -54,4 +54,6 @@
                  [compojure "1.2.1"]
                  [domina "1.0.3-SNAPSHOT"]
                  [hiccups "0.3.0"]
+                 [org.clojars.magomimmo/shoreleave-remote-ring "0.3.1-SNAPSHOT"]
+                 [org.clojars.magomimmo/shoreleave-remote "0.3.1-SNAPSHOT"]
                  ])
